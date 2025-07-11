@@ -14,7 +14,7 @@ public class BoardController {
 	public void boardAdd(BoardDTO dto) {
 		System.out.println("<<< boardAdd()>>>");
 		System.out.println(dto.toString());
-		
+		 
 		int insertCnt = service.boardInsert(dto);
 		if(insertCnt ==1) {
 			System.out.println("게시판 정보 추가 성공"+ insertCnt);
