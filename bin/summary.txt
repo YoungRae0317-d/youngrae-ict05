@@ -1,0 +1,89 @@
+프로젝트 가이드
+
+DTO(데이터 전송 객체 : Data Transfer Object)
+		입력(INSERT), 수정(UPDATE) : 화면 -> setter -> 멤버변수 -> getter -> DB
+		조회(SELECT) : setter(DB) -> 멤버변수 -> getter(화면)
+		
+DAO(데이터 접근 객체 : Data Access Object) => CRUD(입력, 수정, 삭제, 조회)
+
+화면단 : BookMain -> Menu -> 메뉴선택
+백엔드단 (비지니스 로직 구현) :
+	 -> BookController (C, 컨트롤러)
+	 -> Model(M, 모델) = 서비스 + DAO + DTO
+	 	=> BookServiceImpl(BookService) -> BookDAOImpl(BookDAO)
+			(서비스 : DAO호출, 결과 리턴)			(DAO : 데이터 입력,수정,삭제,조회)
+			
+---------------------------------------------------------------------------
+
+	----- [ 6일차 ]
+-- jdbc 테이블 생성 --
+-- 1) 도서정보 테이블(SCOTT_05 계정에서 생성)
+DROP TABLE mvc_book_tbl CASCADE CONSTRAINTS;
+CREATE TABLE mvc_book_tbl(
+	bookId		NUMBER(4)    PRIMARY KEY, 	--도서번호
+	title    	varchar2(50) 	NOT NULL, 	--도서명
+	author 		varchar2(50) 	NOT NULL, 	--저자
+	publisher 	varchar2(50) 	NOT NULL, 	--출판사
+	price 		number(7) 		NOT NULL, 	--가격
+	pubdate		DATE DEFAULT sysdate 		--출판일
+);
+
+SELECT * FROM mvc_book_tbl;
+
+select * from mvc_book_tbl
+where bookid = 1;
+insert into mvc_book_tbl(bookid, title, author, publisher, price)
+value((select nvl(max(bookId)+1,1) from mvc_book_tbl), '소년이온다', '한강', '창비', 14000);
+
+
+
+--2) 게시판 테이블 (SCOTT_05 계정에서 생성)
+DROP TABLE mvc_board_tbl CASCADE CONSTRAINTS;
+CREATE TABLE mvc_board_tbl(
+	boardNo			NUMBER(7)   	PRIMARY KEY, 	--글번호
+	boardTitle    	varchar2(50) 	NOT NULL, 		--글제목
+	boardContent	CLOB 	 		NOT NULL, 		--글내용
+	boardId 		varchar2(50) 	NOT NULL, 		--작성자
+	boardRegDate 	DATE 			DEFAULT sysdate --작성일
+);
+SELECT * FROM mvc_board_tbl;
+
+1.플젝생성
+2. 패키지 및 파일생성
+3. 테이블 생성
+4. DTO 구현
+5. 전체 구현
+Main -> Menu -> View -> Controller -> Service -> DTO+DAO
+				View <- Controller <- Service <- DTO+DAO
+				
+Model : 모델 => 고객의 요청 처리 => DB처리(입력, 수정, 삭제, 조회)
+View : 뷰 => 결과 화면
+Controller : 컨트롤러 => 고객의 요청 및 흐름 제어 담당
+
+6.DAOImpl에 싱글톤 구현
+
+pstmt.executeUpdate(); //입력, 수정, 삭제에 사용된다. 리턴타입은 int => 성공(1), 실패(0)
+pstmt.executeQurey(); //Select에 사용된다. 리턴타입은 ResultSet
+
+특수문자 단축키 : 한글모드 ㅁ+한자키
+
+// 에러정리
+java.sql.SQLException: 인덱스에서 누락된 IN 또는 OUT 매개변수
+=> ?와 pstmt 설정 갯수가 맞지 않을 때
+
+//추가 성공여부 =>
+sql developer에서 select 성공
+
+
+--3) 지역별 맛집 테이블 (SCOTT_05 계정에서 생성)
+DROP TABLE mvc_food_tbl CASCADE CONSTRAINTS;
+CREATE TABLE mvc_food_tbl(
+	지역
+	서울, 인천, 경기
+	강원
+	대전, 세종, 충남, 충북
+	광주, 전북, 전남
+	대구, 부산, 울산, 경북, 경남
+	제주 (총17곳)
+	
+	
