@@ -137,4 +137,68 @@ public class View {
 		System.out.println("작성일 : "+ dto.getBoardRegDate());
 	}
 	
+	//-----------------------------------------------------------------------
+
+
+		//에러메시지
+		public void storeErrorMsg(String msg) {
+			switch(msg) {
+			case"insert":
+				System.out.println("가게 추가 실패");
+				break;
+				
+			case"update" :
+				System.out.println("가게 수정 실패");
+				break;
+
+			case"delete" :
+				System.out.println("가게 삭제 실패");
+				break;
+
+			case"select" :
+				System.out.println("조회 실패");
+				break;
+			default :
+				System.out.println("Error");
+			}
+			
+		}
+		
+		// 전체 가게 목록
+		public void storeListAll(List<StoreDTO> list) {
+			// 방법1. 향상된 for문 조회
+			for (StoreDTO dto1 : list) {
+//				System.out.println("도서ID : "+ dto1.getBookId());
+//				System.out.println("타이틀 : " + dto1.getTitle());
+//				System.out.println("저자 : " + dto1.getAuthor());
+//				System.out.println("출판사 : "+ dto1.getPublisher());
+//				System.out.println("가격 : "+ dto1.getPrice());
+//				System.out.println("출판일 : "+ dto1.getPubdate());
+				System.out.println();
+				storeSelect(dto1);
+			}
+			// 방법2. Iterator 조회
+//			Iterator<BoardDTO> iterator = list.iterator();
+//			while (iterator.hasNext()) {
+//				BoardDTO dto2 = iterator.next();
+//				System.out.println("글번호 : "+ dto2.getBoardNo());
+//				System.out.println("글제목 : " + dto2.getBoardTitle());
+//				System.out.println("글내용 : " + dto2.getBoardContent());
+//				System.out.println("작성자 : "+ dto2.getBoardId());
+//				System.out.println("작성일 : "+ dto2.getBoardRegDate());
+//		        System.out.println();
+//			}
+		}
+		
+		//1건 데이터 조회
+		public void storeSelect(StoreDTO dto) {
+			System.out.println("가게고유번호 : "+ dto.getStoreNo());
+			System.out.println("가게이름 : " + dto.getStoreName());
+			System.out.println("가게음식 : " + dto.getStoreFood());
+			System.out.println("가게위치 : "+ dto.getStoreAddress());
+			System.out.println("가게설명 : "+ dto.getStoreContent());
+			System.out.println("가게전화번호 : "+ dto.getStorePhone());
+			System.out.println("오픈클로즈시간 : "+ dto.getStoreTime());
+		}
+	
 }

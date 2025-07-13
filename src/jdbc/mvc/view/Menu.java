@@ -15,11 +15,11 @@ public class Menu {
 	BookDTO dto = new BookDTO();
 	BoardController bc2 = new BoardController();
 	BoardDTO dto2 = new BoardDTO();
-	//1. 도서관리 2. 게시판 3. 와인 4. 종료
+	//1. 도서관리 2. 게시판 3. 지역맛집 4. 종료
 	public void displayMenu() {
 		while(true) {
 			System.out.println("*--------------------------------------------*");
-			System.out.println("	1. 도서관리	2. 게시판 	3. 와인  4. 종료   ");
+			System.out.println("	1. 도서관리	2. 게시판 	3. 지역맛집  4. 종료   ");
 			System.out.println("*--------------------------------------------*");
 			System.out.print("▶ 메뉴선택 : ");
 			int menuNo = scan.nextInt();
